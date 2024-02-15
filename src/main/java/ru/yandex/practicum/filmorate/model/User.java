@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.UUID;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder(toBuilder = true)
@@ -19,7 +19,7 @@ public class User {
     @Email String email;
     @NotBlank @Pattern(regexp = "^\\S+$") final String login;
     @Nullable String name;
-    @PastOrPresent LocalDateTime birthday;
+    @PastOrPresent LocalDate birthday;
 
 
 }
