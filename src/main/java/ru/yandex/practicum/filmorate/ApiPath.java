@@ -5,9 +5,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ApiPath {
 
-    public final String FILMS_PATH = "film";
-
-    public final String USERS_PATH = "user";
+    public static final String FILMS_PATH = "film";
+    public static final String USERS_PATH = "user";
     public static final String ADD_USER = "addUser";
     public static final String CHANGE_USER = "changeUser";
     public static final String GET_ALL_USERS = "getAllUsers";
