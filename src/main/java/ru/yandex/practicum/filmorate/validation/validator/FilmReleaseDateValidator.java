@@ -6,7 +6,7 @@ import ru.yandex.practicum.filmorate.validation.annotation.ValidFilmReleaseDate;
 
 import java.time.LocalDate;
 
-public class FilmReleaseDateValidator implements ConstraintValidator <ValidFilmReleaseDate, LocalDate> {
+public class FilmReleaseDateValidator implements ConstraintValidator<ValidFilmReleaseDate, LocalDate> {
 
     public static final LocalDate FIRST_FILM_RELEASE_DATE = LocalDate.of(1895, 12, 28);
 

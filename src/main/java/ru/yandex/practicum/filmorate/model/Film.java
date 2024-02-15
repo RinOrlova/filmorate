@@ -15,10 +15,12 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 public class Film {
 
-    @Nullable @UUID String id;
+    @Nullable
+    @UUID String id;
     @NotBlank String name;
     @Size(max = 200) String description;
-    @ValidFilmReleaseDate LocalDate releaseDate;
+    @ValidFilmReleaseDate
+    LocalDate releaseDate;
     @Positive int duration;
 
 

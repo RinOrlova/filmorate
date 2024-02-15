@@ -15,10 +15,15 @@ import java.time.LocalDate;
 @Builder(toBuilder = true)
 public class User {
 
-    @Nullable @UUID final String id;
+    @Nullable
+    @UUID
+    final String id;
     @Email String email;
-    @NotBlank @Pattern(regexp = "^\\S+$") final String login;
-    @Nullable String name;
+    @NotBlank
+    @Pattern(regexp = "^\\S+$")
+    final String login;
+    @Nullable
+    String name;
     @PastOrPresent LocalDate birthday;
 
 

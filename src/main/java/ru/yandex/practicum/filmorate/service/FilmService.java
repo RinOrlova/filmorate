@@ -26,12 +26,12 @@ public class FilmService {
 
     public void updateFilm(Film film) {
         String filmId = film.getId();
-        if(films.containsKey(filmId)) {
+        if (films.containsKey(filmId)) {
             log.info("Attempt to change film with id={}", filmId);
             films.put(filmId, film);
             log.info("Film with id={} successfully updated", filmId);
         } else {
-            log.warn("Film with id={} is not present",  filmId);
+            log.warn("Film with id={} is not present", filmId);
         }
     }
 
