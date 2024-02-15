@@ -1,14 +1,14 @@
 package ru.yandex.practicum.filmorate.model;
 
-import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Value;
-import org.hibernate.validator.constraints.UUID;
+import org.springframework.lang.Nullable;
+import ru.yandex.practicum.filmorate.validation.annotation.UUID;
 import ru.yandex.practicum.filmorate.validation.annotation.ValidFilmReleaseDate;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Value
@@ -16,7 +16,8 @@ import java.time.LocalDate;
 public class Film {
 
     @Nullable
-    @UUID String id;
+    @UUID
+    String id;
     @NotBlank String name;
     @Size(max = 200) String description;
     @ValidFilmReleaseDate

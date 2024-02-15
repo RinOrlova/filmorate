@@ -1,14 +1,14 @@
 package ru.yandex.practicum.filmorate.model;
 
-import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Data;
-import org.hibernate.validator.constraints.UUID;
+import org.springframework.lang.Nullable;
+import ru.yandex.practicum.filmorate.validation.annotation.UUID;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Data
