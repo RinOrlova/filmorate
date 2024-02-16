@@ -20,23 +20,16 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public @ResponseBody ResponseEntity<Object> add(@Valid @RequestBody User user) {
-        Optional<User> result = userService.addUser(user);
-        ResponseEntity<Object> response;
-        if (result.isEmpty()) {
-            response = ResponseEntity.status(500)
-                    .body(result);
-        } else {
-            response = ResponseEntity.status(200)
-                    .body(result);
-        }
-        return response;
+    public @ResponseBody ResponseEntity<User> add(@Valid @RequestBody User user) {
+        User result = userService.addUser(user);
+        return ResponseEntity.status(200)
+                .body(result);
     }
 
     @PutMapping
-    public @ResponseBody ResponseEntity<Object> change(@Valid @RequestBody User user) {
+    public @ResponseBody ResponseEntity<Optional<User>> change(@Valid @RequestBody User user) {
         Optional<User> result = userService.updateUser(user);
-        ResponseEntity<Object> response;
+        ResponseEntity<Optional<User>> response;
         if (result.isEmpty()) {
             response = ResponseEntity.status(404)
                     .body(result);

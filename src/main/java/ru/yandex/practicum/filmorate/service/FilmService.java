@@ -15,20 +15,15 @@ public class FilmService {
     private final Map<Integer, Film> films = new HashMap<>();
     private int id = 0;
 
-    public Optional<Film> addFilm(Film film) {
-        try {
-            log.info("Attempt to add film {}", film);
-            Integer filmId = getNextValidId();
-            Film filmWithId = film.toBuilder()
-                    .id(filmId)
-                    .build();
-            films.put(filmWithId.getId(), filmWithId);
-            log.info("Film with id={} successfully added", filmId);
-            return Optional.of(filmWithId);
-        } catch (RuntimeException exception) {
-            log.error("Failed to add Film due to exception={}", exception.getMessage(), exception);
-        }
-        return Optional.empty();
+    public Film addFilm(Film film) {
+        log.info("Attempt to add film {}", film);
+        Integer filmId = getNextValidId();
+        Film filmWithId = film.toBuilder()
+                .id(filmId)
+                .build();
+        films.put(filmWithId.getId(), filmWithId);
+        log.info("Film with id={} successfully added", filmId);
+        return filmWithId;
     }
 
     private Integer getNextValidId() {

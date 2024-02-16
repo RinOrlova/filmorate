@@ -17,20 +17,15 @@ public class UserService {
     private final Map<Integer, User> users = new HashMap<>();
     private int nextId = 0;
 
-    public Optional<User> addUser(User user) {
-        try {
-            log.info("Attempt to add user {}", user);
-            Integer userId = getNextValidId();
-            User userWithId = user.toBuilder()
-                    .id(userId)
-                    .build();
-            users.put(userWithId.getId(), userWithId);
-            log.info("User with id={} successfully added", userId);
-            return Optional.of(userWithId);
-        } catch (RuntimeException exception) {
-            log.error("Failed to add User due to exception={}", exception.getMessage(), exception);
-        }
-        return Optional.empty();
+    public User addUser(User user) {
+        log.info("Attempt to add user {}", user);
+        Integer userId = getNextValidId();
+        User userWithId = user.toBuilder()
+                .id(userId)
+                .build();
+        users.put(userWithId.getId(), userWithId);
+        log.info("User with id={} successfully added", userId);
+        return userWithId;
     }
 
     public Optional<User> updateUser(User user) {
