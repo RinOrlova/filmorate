@@ -16,8 +16,7 @@ import java.time.LocalDate;
 public class Film {
 
     @Nullable
-    @UUID
-    String id;
+    Integer id;
     @NotBlank String name;
     @Size(max = 200) String description;
     @ValidFilmReleaseDate

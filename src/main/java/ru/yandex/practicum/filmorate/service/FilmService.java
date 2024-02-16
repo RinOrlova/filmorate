@@ -12,11 +12,11 @@ import java.util.UUID;
 @Slf4j
 public class FilmService {
 
-    private final Map<String, Film> films = new HashMap<>();
+    private final Map<Integer, Film> films = new HashMap<>();
 
     public void addFilm(Film film) {
         log.info("Attempt to add film {}", film);
-        String filmId = UUID.randomUUID().toString();
+        Integer filmId =
         Film filmWithId = film.toBuilder()
                 .id(filmId)
                 .build();

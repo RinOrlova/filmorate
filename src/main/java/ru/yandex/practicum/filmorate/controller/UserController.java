@@ -16,17 +16,17 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping(ApiPath.ADD_USER)
+    @PostMapping
     public void add(@Valid @RequestBody User user) {
         userService.addUser(user);
     }
 
-    @PutMapping(value = ApiPath.CHANGE_USER)
+    @PutMapping
     public void change(@Valid @RequestBody User user) {
         userService.updateUser(user);
     }
 
-    @GetMapping(ApiPath.GET_ALL_USERS)
+    @GetMapping
     public @ResponseBody Map<String, User> getUsers() {
         return userService.getAllUsers();
     }

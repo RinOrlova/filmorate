@@ -20,7 +20,7 @@ public class UserService {
         User userWithId = user.toBuilder()
                 .id(userId)
                 .build();
-        users.put(user.getId(), userWithId);
+        users.put(userWithId.getId(), userWithId);
         log.info("User with id={} successfully added", userId);
     }
 

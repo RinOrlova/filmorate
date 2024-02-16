@@ -16,17 +16,17 @@ public class FilmController {
 
     private final FilmService filmService;
 
-    @PostMapping(ApiPath.ADD_FILM)
+    @PostMapping
     public void add(@Valid @RequestBody Film film) {
         filmService.addFilm(film);
     }
 
-    @PutMapping(ApiPath.CHANGE_FILM)
+    @PutMapping
     public void change(@Valid @RequestBody Film film) {
         filmService.updateFilm(film);
     }
 
-    @GetMapping(ApiPath.GET_ALL_FILMS)
+    @GetMapping
     public @ResponseBody Map<String, Film> getFilms() {
         return filmService.getAllFilms();
     }
