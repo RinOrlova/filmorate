@@ -3,21 +3,19 @@ package ru.yandex.practicum.filmorate.model;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.lang.Nullable;
-import ru.yandex.practicum.filmorate.validation.annotation.UUID;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Data
-@Builder(toBuilder = true)
 public class User {
 
     @Nullable
-    @UUID
-    final String id;
+    final Integer id;
     @Email String email;
     @NotBlank
     @Pattern(regexp = "^\\S+$")
@@ -26,5 +24,16 @@ public class User {
     String name;
     @PastOrPresent LocalDate birthday;
 
-
+    @Builder(toBuilder = true)
+    public User(@Nullable Integer id,
+                String email,
+                String login,
+                @Nullable String name,
+                LocalDate birthday) {
+        this.id = id;
+        this.email = email;
+        this.login = login;
+        this.name = Optional.ofNullable(name).orElse(login);
+        this.birthday = birthday;
+    }
 }

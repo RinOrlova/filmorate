@@ -9,18 +9,17 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
-    private static final String VALID_UUID = UUID.randomUUID().toString();
+    private static final Integer VALID_ID = 1;
     private static final String VALID_LOGIN = "paranoid_android";
     private static final String VALID_EMAIL = "paranoid@gmail.com";
     private static final String VALID_NAME = "Thom Yorke";
     private static final User VALID_USER = User.builder()
-            .id(VALID_UUID)
+            .id(VALID_ID)
             .login(VALID_LOGIN)
             .email(VALID_EMAIL)
             .name(VALID_NAME)
@@ -39,15 +38,6 @@ class UserTest {
     void userValidationPositiveCase() {
         Set<ConstraintViolation<User>> violations = validator.validate(VALID_USER);
         assertTrue(violations.isEmpty());
-    }
-
-    @Test
-    void userValidationInvalidIdNegativeCase() {
-        User user = VALID_USER.toBuilder().id("").build();
-        Set<ConstraintViolation<User>> violations = validator.validate(user);
-        assertFalse(violations.isEmpty());
-        assertEquals(1, violations.size());
-        assertEquals("must be a valid UUID", violations.iterator().next().getMessage());
     }
 
     @Test
