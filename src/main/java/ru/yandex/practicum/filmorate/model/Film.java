@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.model;
 import lombok.Builder;
 import lombok.Value;
 import org.springframework.lang.Nullable;
-import ru.yandex.practicum.filmorate.validation.annotation.UUID;
 import ru.yandex.practicum.filmorate.validation.annotation.ValidFilmReleaseDate;
 
 import javax.validation.constraints.NotBlank;

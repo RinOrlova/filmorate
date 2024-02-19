@@ -9,13 +9,12 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FilmTest {
     public static final String VALID_DESCRIPTION = "Test description";
-    private static final String VALID_UUID = UUID.randomUUID().toString();
+    private static final Integer VALID_ID = 1;
     public static final String VALID_NAME = "Poor Things";
     private Validator validator;
 
@@ -28,7 +27,7 @@ class FilmTest {
     @Test
     void filmValidationPositiveCase() {
         Film film = Film.builder()
-                .id(VALID_UUID)
+                .id(VALID_ID)
                 .description(VALID_DESCRIPTION)
                 .name(VALID_NAME)
                 .duration(141)
@@ -39,24 +38,9 @@ class FilmTest {
     }
 
     @Test
-    void filmValidationInvalidIdNegativeCase() {
-        Film film = Film.builder()
-                .id("")
-                .description(VALID_DESCRIPTION)
-                .name("Poor Things")
-                .duration(141)
-                .releaseDate(LocalDate.of(2023, 9, 1))
-                .build();
-        Set<ConstraintViolation<Film>> violations = validator.validate(film);
-        assertFalse(violations.isEmpty());
-        assertEquals(1, violations.size());
-        assertEquals("must be a valid UUID", violations.iterator().next().getMessage());
-    }
-
-    @Test
     void filmValidationInvalidDescriptionNegativeCase() {
         Film film = Film.builder()
-                .id(VALID_UUID)
+                .id(VALID_ID)
                 .description(createLongString(201))
                 .name("Poor Things")
                 .duration(141)
@@ -71,7 +55,7 @@ class FilmTest {
     @Test
     void filmValidationInvalidNameNegativeCase() {
         Film film = Film.builder()
-                .id(VALID_UUID)
+                .id(VALID_ID)
                 .description(createLongString(200))
                 .name("   ")
                 .duration(141)
@@ -86,7 +70,7 @@ class FilmTest {
     @Test
     void filmValidationInvalidDurationNegativeCase() {
         Film film = Film.builder()
-                .id(VALID_UUID)
+                .id(VALID_ID)
                 .description(VALID_DESCRIPTION)
                 .name(VALID_NAME)
                 .duration(0)
@@ -101,7 +85,7 @@ class FilmTest {
     @Test
     void filmValidationInvalidReleaseDateNegativeCase() {
         Film film = Film.builder()
-                .id(VALID_UUID)
+                .id(VALID_ID)
                 .description(VALID_DESCRIPTION)
                 .name(VALID_NAME)
                 .duration(141)
