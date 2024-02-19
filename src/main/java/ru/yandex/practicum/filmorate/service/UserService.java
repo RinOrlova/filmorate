@@ -3,11 +3,11 @@ package ru.yandex.practicum.filmorate.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -28,17 +28,17 @@ public class UserService {
         return userWithId;
     }
 
-    public Optional<User> updateUser(User user) {
+    public User updateUser(User user) {
         Integer userId = user.getId();
         if (users.containsKey(userId)) {
             log.info("Attempt to change user with id={}", userId);
             users.put(user.getId(), user);
             log.info("User with id={} successfully updated", userId);
-            return Optional.of(user);
+            return user;
         } else {
             log.warn("User with id={} is not present", userId);
         }
-        return Optional.empty();
+        throw new UserNotFoundException(userId);
     }
 
     public Map<Integer, User> getAllUsers() {

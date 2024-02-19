@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.ApiPath;
+import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(ApiPath.FILMS_PATH)
@@ -26,18 +26,15 @@ public class FilmController {
     }
 
     @PutMapping
-    public @ResponseBody ResponseEntity<Optional<Film>> change(@Valid @RequestBody Film film) {
-        Optional<Film> result = filmService.updateFilm(film);
-        ResponseEntity<Optional<Film>> response;
-        if (result.isEmpty()) {
-            response = ResponseEntity.status(404)
+    public @ResponseBody ResponseEntity<Film> change(@Valid @RequestBody Film film) {
+        try {
+            Film result = filmService.updateFilm(film);
+            return ResponseEntity.status(200)
                     .body(result);
-        } else {
-            response = ResponseEntity.status(200)
-                    .body(result);
+        } catch (FilmNotFoundException exception) {
+            return ResponseEntity.status(404)
+                    .body(film);
         }
-        return response;
-
     }
 
     @GetMapping

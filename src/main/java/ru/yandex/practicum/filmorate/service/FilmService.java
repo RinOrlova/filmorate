@@ -3,9 +3,13 @@ package ru.yandex.practicum.filmorate.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -30,17 +34,17 @@ public class FilmService {
         return id += 1;
     }
 
-    public Optional<Film> updateFilm(Film film) {
+    public Film updateFilm(Film film) {
         Integer filmId = film.getId();
         if (films.containsKey(filmId)) {
             log.info("Attempt to change film with id={}", filmId);
             films.put(filmId, film);
             log.info("Film with id={} successfully updated", filmId);
-            return Optional.of(film);
+            return film;
         } else {
             log.warn("Film with id={} is not present", filmId);
         }
-        return Optional.empty();
+        throw new FilmNotFoundException(filmId);
     }
 
     public List<Film> getListOfAllFilms() {
