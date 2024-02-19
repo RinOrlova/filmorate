@@ -1,12 +1,26 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Value;
+import org.springframework.lang.Nullable;
+import ru.yandex.practicum.filmorate.validation.annotation.ValidFilmReleaseDate;
 
-/**
- * Film.
- */
-@Getter
-@Setter
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
+
+@Value
+@Builder(toBuilder = true)
 public class Film {
+
+    @Nullable
+    Integer id;
+    @NotBlank String name;
+    @Size(max = 200) String description;
+    @ValidFilmReleaseDate
+    LocalDate releaseDate;
+    @Positive int duration;
+
+
 }
