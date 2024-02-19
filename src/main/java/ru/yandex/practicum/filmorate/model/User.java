@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Value;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Email;
@@ -11,15 +12,15 @@ import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.Optional;
 
-@Data
+@Value
 public class User {
 
     @Nullable
-    final Integer id;
+    Integer id;
     @Email String email;
     @NotBlank
     @Pattern(regexp = "^\\S+$")
-    final String login;
+    String login;
     @Nullable
     String name;
     @PastOrPresent LocalDate birthday;
