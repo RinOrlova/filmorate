@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.ApiPath;
 import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,10 +18,11 @@ import java.util.List;
 public class FilmController {
 
     private final FilmService filmService;
+    private final FilmStorage filmStorage;
 
     @PostMapping
     public @ResponseBody ResponseEntity<Film> add(@Valid @RequestBody Film film) {
-        Film result = filmService.addFilm(film);
+        Film result = filmStorage.addFilm(film);
         return ResponseEntity.status(200)
                 .body(result);
     }
@@ -28,7 +30,7 @@ public class FilmController {
     @PutMapping
     public @ResponseBody ResponseEntity<Film> change(@Valid @RequestBody Film film) {
         try {
-            Film result = filmService.updateFilm(film);
+            Film result = filmStorage.updateFilm(film);
             return ResponseEntity.status(200)
                     .body(result);
         } catch (FilmNotFoundException exception) {
@@ -39,6 +41,6 @@ public class FilmController {
 
     @GetMapping
     public @ResponseBody List<Film> getFilms() {
-        return filmService.getListOfAllFilms();
+        return filmStorage.getListOfAllFilms();
     }
 }

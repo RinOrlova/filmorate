@@ -9,10 +9,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Value
-public class User {
+public class User implements Comparable<User> {
 
     @Nullable
     Integer id;
@@ -23,17 +25,36 @@ public class User {
     @Nullable
     String name;
     @PastOrPresent LocalDate birthday;
+    Set<Integer> friendsIds;
 
     @Builder(toBuilder = true)
     public User(@Nullable Integer id,
                 String email,
                 String login,
                 @Nullable String name,
-                LocalDate birthday) {
+                LocalDate birthday,
+                @Nullable Set<Integer> friendsIds) {
         this.id = id;
         this.email = email;
         this.login = login;
+        this.friendsIds = friendsIds != null ? friendsIds : new HashSet<>();
         this.name = Optional.ofNullable(name).orElse(login);
         this.birthday = birthday;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        Integer otherId = o.getId();
+        Integer id = this.getId();
+        if (id != null) {
+            if (otherId != null) {
+                return Integer.compare(id, otherId);
+            }
+            return -1;
+        } else if (otherId != null) {
+            return 1;
+        }
+        return 0;
+
     }
 }

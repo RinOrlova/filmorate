@@ -7,6 +7,7 @@ import ru.yandex.practicum.filmorate.ApiPath;
 import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -18,10 +19,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserStorage userStorage;
 
     @PostMapping
     public @ResponseBody ResponseEntity<User> add(@Valid @RequestBody User user) {
-        User result = userService.addUser(user);
+        User result = userStorage.addUser(user);
         return ResponseEntity.status(200)
                 .body(result);
     }
@@ -29,7 +31,7 @@ public class UserController {
     @PutMapping
     public @ResponseBody ResponseEntity<User> change(@Valid @RequestBody User user) {
         try {
-            User result = userService.updateUser(user);
+            User result = userStorage.updateUser(user);
             return ResponseEntity.status(200)
                     .body(result);
         } catch (UserNotFoundException exception) {
@@ -40,6 +42,6 @@ public class UserController {
 
     @GetMapping
     public @ResponseBody List<User> getUsers() {
-        return new ArrayList<>(userService.getAllUsers().values());
+        return new ArrayList<>(userStorage.getAllUsers().values());
     }
 }
