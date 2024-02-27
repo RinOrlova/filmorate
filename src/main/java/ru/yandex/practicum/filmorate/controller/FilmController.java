@@ -10,6 +10,7 @@ import ru.yandex.practicum.filmorate.service.FilmService;
 import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -29,18 +30,37 @@ public class FilmController {
 
     @PutMapping
     public @ResponseBody ResponseEntity<Film> change(@Valid @RequestBody Film film) {
-        try {
             Film result = filmStorage.updateFilm(film);
             return ResponseEntity.status(200)
                     .body(result);
-        } catch (FilmNotFoundException exception) {
-            return ResponseEntity.status(404)
-                    .body(film);
-        }
     }
 
     @GetMapping
     public @ResponseBody List<Film> getFilms() {
         return filmStorage.getListOfAllFilms();
     }
+
+    @PutMapping(ApiPath.FILM_LIKES_PATH)
+    public @ResponseBody ResponseEntity<Film> addLike(@PathVariable Integer id,
+                                                      @PathVariable Integer userId) {
+        Film result = filmService.addLike(id, userId);
+        return ResponseEntity.status(200)
+                .body(result);
+    }
+
+    @DeleteMapping(ApiPath.FILM_LIKES_PATH)
+    public @ResponseBody ResponseEntity<Film> deleteLike(@PathVariable Integer id,
+                                                      @PathVariable Integer userId) {
+        Film result = filmService.removeLike(id, userId);
+        return ResponseEntity.status(200)
+                .body(result);
+    }
+
+    @GetMapping(ApiPath.POPULAR_FILMS_PATH)
+    public @ResponseBody ResponseEntity<Collection<Film>> getPopularFilms(@RequestParam(name = "count") Integer count){
+        Collection<Film> popularFilms = filmService.getPopularFilms(count);
+        return ResponseEntity.status(200)
+                .body(popularFilms);
+    }
+
 }

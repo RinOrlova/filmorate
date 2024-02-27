@@ -7,7 +7,7 @@ import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
-import java.util.Set;
+import java.util.Collection;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -38,13 +38,20 @@ public class UserService {
         return user;
     }
 
-    public Set<User> showCommonFriends(Integer userId, Integer friendId) {
+    public Collection<User> getFriendsCollection(Integer userId) {
+        User user = getUserFromStorage(userId);
+        return user.getFriendsIds().stream()
+                .map(this::getUserFromStorage)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public Collection<User> getCommonFriends(Integer userId, Integer friendId) {
         User user = getUserFromStorage(userId);
         User friend = getUserFromStorage(friendId);
         return getCommonUsers(user, friend);
     }
 
-    private Set<User> getCommonUsers(User user, User friend) {
+    private Collection<User> getCommonUsers(User user, User friend) {
         return user.getFriendsIds().stream()
                 .filter(id -> friend.getFriendsIds().contains(id))
                 .map(this::getUserFromStorage)

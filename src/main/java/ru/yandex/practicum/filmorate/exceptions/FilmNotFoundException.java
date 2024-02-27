@@ -1,6 +1,6 @@
 package ru.yandex.practicum.filmorate.exceptions;
 
-public class FilmNotFoundException extends RuntimeException {
+public class FilmNotFoundException extends AbstractNotFoundException {
 
     private static final String DEFAULT_MESSAGE = "Film by id=%s not found";
 

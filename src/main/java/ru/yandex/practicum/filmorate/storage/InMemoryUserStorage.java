@@ -17,6 +17,7 @@ public class InMemoryUserStorage implements UserStorage {
     private final Map<Integer, User> users = new HashMap<>();
     private int nextId = 0;
 
+    @Override
     public User addUser(User user) {
         log.info("Attempt to add user {}", user);
         Integer userId = getNextValidId();
@@ -28,6 +29,7 @@ public class InMemoryUserStorage implements UserStorage {
         return userWithId;
     }
 
+    @Override
     public User updateUser(User user) {
         Integer userId = user.getId();
         if (users.containsKey(userId)) {
@@ -41,6 +43,7 @@ public class InMemoryUserStorage implements UserStorage {
         throw new UserNotFoundException(userId);
     }
 
+    @Override
     public Map<Integer, User> getAllUsers() {
         return users;
     }
