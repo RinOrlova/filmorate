@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.model;
 import lombok.Builder;
 import lombok.Value;
 import org.springframework.lang.Nullable;
+import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -38,8 +39,19 @@ public class User implements Comparable<User> {
         this.email = email;
         this.login = login;
         this.friendsIds = friendsIds != null ? friendsIds : new HashSet<>();
-        this.name = Optional.ofNullable(name).orElse(login);
+        this.name = getName(login, name);
         this.birthday = birthday;
+    }
+
+    private static String getName(String login, String name) {
+        Optional<String> optName = Optional.ofNullable(name);
+        if (optName.isPresent()) {
+            String nonNullName = optName.get();
+            if (StringUtils.hasText(nonNullName)) {
+                return name;
+            }
+        }
+        return login;
     }
 
     @Override

@@ -48,7 +48,7 @@ public class InMemoryUserStorage implements UserStorage {
         return users;
     }
 
-    public Integer getNextValidId() {
+    private Integer getNextValidId() {
         nextId += 1;
         return nextId;
     }

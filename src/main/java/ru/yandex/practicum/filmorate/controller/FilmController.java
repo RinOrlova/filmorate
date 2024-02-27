@@ -19,25 +19,30 @@ import java.util.List;
 public class FilmController {
 
     private final FilmService filmService;
-    private final FilmStorage filmStorage;
-
     @PostMapping
     public @ResponseBody ResponseEntity<Film> add(@Valid @RequestBody Film film) {
-        Film result = filmStorage.addFilm(film);
+        Film result = filmService.addFilm(film);
         return ResponseEntity.status(200)
                 .body(result);
     }
 
     @PutMapping
     public @ResponseBody ResponseEntity<Film> change(@Valid @RequestBody Film film) {
-            Film result = filmStorage.updateFilm(film);
+            Film result = filmService.updateFilm(film);
             return ResponseEntity.status(200)
                     .body(result);
     }
 
     @GetMapping
     public @ResponseBody List<Film> getFilms() {
-        return filmStorage.getListOfAllFilms();
+        return filmService.getListOfAllFilms();
+    }
+
+    @GetMapping(ApiPath.FILM_BY_ID_PATH)
+    public @ResponseBody ResponseEntity<Film> getFilmById(@PathVariable Integer id) {
+        Film result = filmService.getFilmFromStorage(id);
+        return ResponseEntity.status(200)
+                .body(result);
     }
 
     @PutMapping(ApiPath.FILM_LIKES_PATH)

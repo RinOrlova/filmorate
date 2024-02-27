@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,18 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private final UserStorage userStorage;
+
+    public User addUser(User user) {
+        return userStorage.addUser(user);
+    }
+
+    public User updateUser(User user) {
+        return userStorage.updateUser(user);
+    }
+
+    public Map<Integer, User> getAllUsers() {
+        return userStorage.getAllUsers();
+    }
 
     public User addFriend(Integer userId, Integer friendId) {
         User user = getUserFromStorage(userId);
@@ -58,7 +71,7 @@ public class UserService {
                 .collect(Collectors.toCollection(TreeSet::new));
     }
 
-    private User getUserFromStorage(Integer id) {
+    public User getUserFromStorage(Integer id) {
         return userStorage.getUserById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
     }

@@ -9,6 +9,7 @@ import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +19,18 @@ public class FilmService {
 
     private static final int DEFAULT_LIMIT = 10;
     private final FilmStorage filmStorage;
+
+    public Film addFilm(Film film) {
+        return filmStorage.addFilm(film);
+    }
+
+    public Film updateFilm(Film film) {
+        return filmStorage.updateFilm(film);
+    }
+
+    public List<Film> getListOfAllFilms() {
+        return filmStorage.getListOfAllFilms();
+    }
 
     public Film addLike(Integer filmId, Integer userId) {
         Film film = getFilmFromStorage(filmId);
@@ -33,7 +46,7 @@ public class FilmService {
         return film;
     }
 
-    private Film getFilmFromStorage(Integer filmId) {
+    public Film getFilmFromStorage(Integer filmId) {
         return filmStorage.getFilmById(filmId).orElseThrow(() -> new FilmNotFoundException(filmId));
     }
 

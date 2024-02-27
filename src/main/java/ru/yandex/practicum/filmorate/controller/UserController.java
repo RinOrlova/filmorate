@@ -20,25 +20,31 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final UserStorage userStorage;
 
     @PostMapping
     public @ResponseBody ResponseEntity<User> add(@Valid @RequestBody User user) {
-        User result = userStorage.addUser(user);
+        User result = userService.addUser(user);
         return ResponseEntity.status(200)
                 .body(result);
     }
 
     @PutMapping
     public @ResponseBody ResponseEntity<User> change(@Valid @RequestBody User user) {
-            User result = userStorage.updateUser(user);
+            User result = userService.updateUser(user);
             return ResponseEntity.status(200)
                     .body(result);
     }
 
     @GetMapping
     public @ResponseBody List<User> getUsers() {
-        return new ArrayList<>(userStorage.getAllUsers().values());
+        return new ArrayList<>(userService.getAllUsers().values());
+    }
+
+    @GetMapping(ApiPath.USER_BY_ID_PATH)
+    public @ResponseBody ResponseEntity<User> getUserById(@PathVariable(name = "id") Integer id) {
+        User result = userService.getUserFromStorage(id);
+        return ResponseEntity.status(200)
+                .body(result);
     }
 
     @PutMapping(ApiPath.FRIENDS_BY_FRIEND_ID_PATH)
