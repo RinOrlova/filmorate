@@ -49,7 +49,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     private Integer getNextValidId() {
-        nextId += 1;
+        nextId ++;
         return nextId;
     }
 

@@ -30,7 +30,8 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
     private Integer getNextValidId() {
-        return id += 1;
+        id++;
+        return id;
     }
 
     @Override
