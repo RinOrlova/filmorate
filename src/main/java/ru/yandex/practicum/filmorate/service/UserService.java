@@ -33,9 +33,9 @@ public class UserService {
 
     public User addFriend(Integer userId, Integer friendId) {
         User user = getUserFromStorage(userId);
+        User friend = getUserFromStorage(friendId);
         user.getFriendsIds().add(friendId);
         userStorage.updateUser(user);
-        User friend = getUserFromStorage(friendId);
         friend.getFriendsIds().add(userId);
         userStorage.updateUser(friend);
         return user;
@@ -43,9 +43,9 @@ public class UserService {
 
     public User removeFriend(Integer userId, Integer friendId) {
         User user = getUserFromStorage(userId);
+        User friend = getUserFromStorage(friendId);
         user.getFriendsIds().remove(friendId);
         userStorage.updateUser(user);
-        User friend = getUserFromStorage(friendId);
         friend.getFriendsIds().remove(userId);
         userStorage.updateUser(friend);
         return user;

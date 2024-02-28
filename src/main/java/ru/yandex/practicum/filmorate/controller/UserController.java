@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.ApiPath;
-import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.UserService;
-import ru.yandex.practicum.filmorate.storage.UserStorage;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -30,9 +28,9 @@ public class UserController {
 
     @PutMapping
     public @ResponseBody ResponseEntity<User> change(@Valid @RequestBody User user) {
-            User result = userService.updateUser(user);
-            return ResponseEntity.status(200)
-                    .body(result);
+        User result = userService.updateUser(user);
+        return ResponseEntity.status(200)
+                .body(result);
     }
 
     @GetMapping

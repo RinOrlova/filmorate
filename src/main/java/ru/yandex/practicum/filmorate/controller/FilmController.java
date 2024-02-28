@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.ApiPath;
-import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.service.FilmService;
-import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -19,6 +17,7 @@ import java.util.List;
 public class FilmController {
 
     private final FilmService filmService;
+
     @PostMapping
     public @ResponseBody ResponseEntity<Film> add(@Valid @RequestBody Film film) {
         Film result = filmService.addFilm(film);
@@ -28,9 +27,9 @@ public class FilmController {
 
     @PutMapping
     public @ResponseBody ResponseEntity<Film> change(@Valid @RequestBody Film film) {
-            Film result = filmService.updateFilm(film);
-            return ResponseEntity.status(200)
-                    .body(result);
+        Film result = filmService.updateFilm(film);
+        return ResponseEntity.status(200)
+                .body(result);
     }
 
     @GetMapping
@@ -55,14 +54,14 @@ public class FilmController {
 
     @DeleteMapping(ApiPath.FILM_LIKES_PATH)
     public @ResponseBody ResponseEntity<Film> deleteLike(@PathVariable Integer id,
-                                                      @PathVariable Integer userId) {
+                                                         @PathVariable Integer userId) {
         Film result = filmService.removeLike(id, userId);
         return ResponseEntity.status(200)
                 .body(result);
     }
 
     @GetMapping(ApiPath.POPULAR_FILMS_PATH)
-    public @ResponseBody ResponseEntity<Collection<Film>> getPopularFilms(@RequestParam(name = "count") Integer count){
+    public @ResponseBody ResponseEntity<Collection<Film>> getPopularFilms(@RequestParam(name = "count", required = false) Integer count) {
         Collection<Film> popularFilms = filmService.getPopularFilms(count);
         return ResponseEntity.status(200)
                 .body(popularFilms);
