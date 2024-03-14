@@ -4,50 +4,72 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.FilmNotFoundException;
+import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class FilmService {
 
-    private final Map<Integer, Film> films = new HashMap<>();
-    private int id = 0;
+    private static final int DEFAULT_LIMIT = 10;
+    private final FilmStorage filmStorage;
 
     public Film addFilm(Film film) {
-        log.info("Attempt to add film {}", film);
-        Integer filmId = getNextValidId();
-        Film filmWithId = film.toBuilder()
-                .id(filmId)
-                .build();
-        films.put(filmWithId.getId(), filmWithId);
-        log.info("Film with id={} successfully added", filmId);
-        return filmWithId;
-    }
-
-    private Integer getNextValidId() {
-        return id += 1;
+        return filmStorage.addFilm(film);
     }
 
     public Film updateFilm(Film film) {
-        Integer filmId = film.getId();
-        if (films.containsKey(filmId)) {
-            log.info("Attempt to change film with id={}", filmId);
-            films.put(filmId, film);
-            log.info("Film with id={} successfully updated", filmId);
-            return film;
-        } else {
-            log.warn("Film with id={} is not present", filmId);
-        }
-        throw new FilmNotFoundException(filmId);
+        return filmStorage.updateFilm(film);
     }
 
     public List<Film> getListOfAllFilms() {
-        return new ArrayList<>(films.values());
+        return filmStorage.getListOfAllFilms();
     }
+
+    public Film addLike(Integer filmId, Integer userId) {
+        Film film = getFilmFromStorage(filmId);
+        film.getLikes().add(userId);
+        filmStorage.updateFilm(film);
+        return film;
+    }
+
+    public Film removeLike(Integer filmId, Integer userId) {
+        Film film = getFilmFromStorage(filmId);
+        if (film.getLikes().contains(userId)) {
+            film.getLikes().remove(userId);
+            filmStorage.updateFilm(film);
+            return film;
+        } else {
+            throw new UserNotFoundException(userId);
+        }
+    }
+
+    public Film getFilmFromStorage(Integer filmId) {
+        return filmStorage.getFilmById(filmId).orElseThrow(() -> new FilmNotFoundException(filmId));
+    }
+
+    public Collection<Film> getPopularFilms(Integer count) {
+        return filmStorage.getListOfAllFilms().stream()
+                .sorted(Comparator.comparing(film -> ((Film) film).getLikes().size()).reversed())
+                .limit(getFilmsLimit(count))
+                .collect(Collectors.toList());
+    }
+
+    private long getFilmsLimit(Integer count) {
+        if (count != null) {
+            if (count > 0) {
+                return count;
+            }
+        }
+        return DEFAULT_LIMIT;
+    }
+
+
 }

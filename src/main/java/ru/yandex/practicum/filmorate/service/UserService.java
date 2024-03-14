@@ -5,48 +5,74 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class UserService {
 
-    private final Map<Integer, User> users = new HashMap<>();
-    private int nextId = 0;
+    private final UserStorage userStorage;
 
     public User addUser(User user) {
-        log.info("Attempt to add user {}", user);
-        Integer userId = getNextValidId();
-        User userWithId = user.toBuilder()
-                .id(userId)
-                .build();
-        users.put(userWithId.getId(), userWithId);
-        log.info("User with id={} successfully added", userId);
-        return userWithId;
+        return userStorage.addUser(user);
     }
 
     public User updateUser(User user) {
-        Integer userId = user.getId();
-        if (users.containsKey(userId)) {
-            log.info("Attempt to change user with id={}", userId);
-            users.put(user.getId(), user);
-            log.info("User with id={} successfully updated", userId);
-            return user;
-        } else {
-            log.warn("User with id={} is not present", userId);
-        }
-        throw new UserNotFoundException(userId);
+        return userStorage.updateUser(user);
     }
 
     public Map<Integer, User> getAllUsers() {
-        return users;
+        return userStorage.getAllUsers();
     }
 
-    public Integer getNextValidId() {
-        nextId += 1;
-        return nextId;
+    public User addFriend(Integer userId, Integer friendId) {
+        User user = getUserFromStorage(userId);
+        User friend = getUserFromStorage(friendId);
+        user.getFriendsIds().add(friendId);
+        userStorage.updateUser(user);
+        friend.getFriendsIds().add(userId);
+        userStorage.updateUser(friend);
+        return user;
+    }
+
+    public User removeFriend(Integer userId, Integer friendId) {
+        User user = getUserFromStorage(userId);
+        User friend = getUserFromStorage(friendId);
+        user.getFriendsIds().remove(friendId);
+        userStorage.updateUser(user);
+        friend.getFriendsIds().remove(userId);
+        userStorage.updateUser(friend);
+        return user;
+    }
+
+    public Collection<User> getFriendsCollection(Integer userId) {
+        User user = getUserFromStorage(userId);
+        return user.getFriendsIds().stream()
+                .map(this::getUserFromStorage)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public Collection<User> getCommonFriends(Integer userId, Integer friendId) {
+        User user = getUserFromStorage(userId);
+        User friend = getUserFromStorage(friendId);
+        return getCommonUsers(user, friend);
+    }
+
+    private Collection<User> getCommonUsers(User user, User friend) {
+        return user.getFriendsIds().stream()
+                .filter(id -> friend.getFriendsIds().contains(id))
+                .map(this::getUserFromStorage)
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    public User getUserFromStorage(Integer id) {
+        return userStorage.getUserById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 }
