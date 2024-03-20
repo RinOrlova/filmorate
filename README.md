@@ -1,7 +1,7 @@
 # java-filmorate
 Template repository for Filmorate project.
 
-![ВB scheme](https://github.com/RinOrlova/filmorate/blob/db_draft/db.png)
+![ВB scheme](https://github.com/RinOrlova/filmorate/blob/db_draft/film_db.png)
 
 **SQL request examples:**
 
