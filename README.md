@@ -8,24 +8,22 @@ Template repository for Filmorate project.
 **Film**
 
 Get all films:
-<pre>
-```sql
+
+```SQL
 SELECT * 
 FROM film;
 ```
-</pre>
+
 
 Get film by id:
-<pre>
+
 ```sql
 SELECT *
 FROM film
 WHERE id = 23;
 ```
-</pre>
 
 Get top-10 films:
-<pre>
 ```sql
 SELECT film.id AS film_id, film.name AS film_name, 
 COUNT(film_x_user.user_id) AS views_count
@@ -35,29 +33,27 @@ GROUP BY film.id, film.name
 ORDER BY views_count DESC
 LIMIT 10;
 ```
-</pre>
 
 **User**
 
 Get all users:
-<pre>
+
 ```sql
 SELECT * 
 FROM app_user;
 ```
-</pre>
 
 Get user by id:
-<pre>
+
 ```sql
 SELECT *
 FROM app_user
 WHERE id = 17;
 ```
-</pre>
+
 
 Get friends:
-<pre>
+
 ```sql
  SELECT DISTINCT u2.id, u2.name
     FROM "app_user" u1
@@ -67,5 +63,5 @@ Get friends:
     JOIN "app_user" u2 ON uc2.user_id = u2.id
     WHERE u1.id = 1;
 ```
-</pre>
+
 
