@@ -1,7 +1,5 @@
 package ru.yandex.practicum.filmorate.storage;
 
-import org.hibernate.type.IntegerType;
-import org.springframework.beans.factory.annotation.Qualifier;
 import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
@@ -17,4 +15,8 @@ public interface UserStorage {
     Map<Integer, User> getAllUsers();
 
     Optional<User> getUserById(Integer id);
+
+    default User getUserFromStorage(Integer id){
+        return getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
 }

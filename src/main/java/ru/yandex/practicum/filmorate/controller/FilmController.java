@@ -37,9 +37,9 @@ public class FilmController {
         return filmService.getListOfAllFilms();
     }
 
-    @GetMapping(ApiPath.FILM_BY_ID_PATH)
+    @GetMapping(ApiPath.BY_ID_PATH)
     public ResponseEntity<Film> getFilmById(@PathVariable Integer id) {
-        Film result = filmService.getFilmFromStorage(id);
+        Film result = filmService.getFilmById(id);
         return ResponseEntity.status(200)
                 .body(result);
     }
