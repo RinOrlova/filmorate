@@ -36,7 +36,7 @@ public class UserController {
         return new ArrayList<>(userService.getAllUsers().values());
     }
 
-    @GetMapping(ApiPath.USER_BY_ID_PATH)
+    @GetMapping(ApiPath.BY_ID_PATH)
     public ResponseEntity<User> getUserById(@PathVariable(name = "id") Integer id) {
         User result = userService.getUserFromStorage(id);
         return ResponseEntity.status(200).body(result);
@@ -64,6 +64,7 @@ public class UserController {
     public ResponseEntity<Collection<User>> getCommonFriends(@PathVariable Integer id, @PathVariable Integer otherId) {
         Collection<User> commonFriends = userService.getCommonFriends(id, otherId);
         return ResponseEntity.status(200).body(commonFriends);
+
     }
 
 }

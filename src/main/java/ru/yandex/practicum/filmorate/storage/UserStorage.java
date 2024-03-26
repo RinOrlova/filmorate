@@ -1,5 +1,8 @@
 package ru.yandex.practicum.filmorate.storage;
 
+import org.hibernate.type.IntegerType;
+import org.springframework.beans.factory.annotation.Qualifier;
+import ru.yandex.practicum.filmorate.exceptions.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.util.Map;

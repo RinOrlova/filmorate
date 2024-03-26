@@ -20,9 +20,11 @@ public class Film {
     Integer id;
     @NotBlank String name;
     @Size(max = 200) String description;
+    @NotBlank String genre;
     @ValidFilmReleaseDate
     LocalDate releaseDate;
     @Positive int duration;
+    @NotBlank String mpaRating;
     Set<Integer> likes = new HashSet<>();
 
 

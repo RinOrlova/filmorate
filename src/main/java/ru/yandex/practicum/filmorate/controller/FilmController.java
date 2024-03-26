@@ -44,22 +44,6 @@ public class FilmController {
                 .body(result);
     }
 
-    @PutMapping(ApiPath.FILM_LIKES_PATH)
-    public ResponseEntity<Film> addLike(@PathVariable Integer id,
-                                        @PathVariable Integer userId) {
-        Film result = filmService.addLike(id, userId);
-        return ResponseEntity.status(200)
-                .body(result);
-    }
-
-    @DeleteMapping(ApiPath.FILM_LIKES_PATH)
-    public ResponseEntity<Film> deleteLike(@PathVariable Integer id,
-                                           @PathVariable Integer userId) {
-        Film result = filmService.removeLike(id, userId);
-        return ResponseEntity.status(200)
-                .body(result);
-    }
-
     @GetMapping(ApiPath.POPULAR_FILMS_PATH)
     public ResponseEntity<Collection<Film>> getPopularFilms(@RequestParam(name = "count", required = false) Integer count) {
         Collection<Film> popularFilms = filmService.getPopularFilms(count);

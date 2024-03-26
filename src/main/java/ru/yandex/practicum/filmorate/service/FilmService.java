@@ -33,28 +33,6 @@ public class FilmService {
         return filmStorage.getListOfAllFilms();
     }
 
-    public Film addLike(Integer filmId, Integer userId) {
-        Film film = getFilmFromStorage(filmId);
-        film.getLikes().add(userId);
-        filmStorage.updateFilm(film);
-        return film;
-    }
-
-    public Film removeLike(Integer filmId, Integer userId) {
-        Film film = getFilmFromStorage(filmId);
-        if (film.getLikes().contains(userId)) {
-            film.getLikes().remove(userId);
-            filmStorage.updateFilm(film);
-            return film;
-        } else {
-            throw new UserNotFoundException(userId);
-        }
-    }
-
-    public Film getFilmFromStorage(Integer filmId) {
-        return filmStorage.getFilmById(filmId).orElseThrow(() -> new FilmNotFoundException(filmId));
-    }
-
     public Collection<Film> getPopularFilms(Integer count) {
         return filmStorage.getListOfAllFilms().stream()
                 .sorted(Comparator.comparing(film -> ((Film) film).getLikes().size()).reversed())
@@ -71,5 +49,12 @@ public class FilmService {
         return DEFAULT_LIMIT;
     }
 
-
+    private long getFilmsLimit(Integer count) {
+        if (count != null) {
+            if (count > 0) {
+                return count;
+            }
+        }
+        return DEFAULT_LIMIT;
+    }
 }
