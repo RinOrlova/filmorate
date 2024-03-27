@@ -9,7 +9,7 @@ import ru.yandex.practicum.filmorate.storage.FilmStorage;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class FilmService {
 
     private static final int DEFAULT_LIMIT = 10;
+
     @Qualifier("filmDbStorage")
     private final FilmStorage filmStorage;
 
@@ -29,8 +30,8 @@ public class FilmService {
         return filmStorage.updateFilm(film);
     }
 
-    public List<Film> getListOfAllFilms() {
-        return filmStorage.getListOfAllFilms();
+    public Map<Integer, Film> getListOfAllFilms() {
+        return filmStorage.getAllFilms();
     }
 
     public Film getFilmById(Integer id) {
@@ -38,7 +39,7 @@ public class FilmService {
     }
 
     public Collection<Film> getPopularFilms(Integer count) {
-        return filmStorage.getListOfAllFilms().stream()
+        return filmStorage.getAllFilms().values().stream()
                 .sorted(Comparator.comparing(film -> ((Film) film).getLikes().size()).reversed())
                 .limit(getFilmsLimit(count))
                 .collect(Collectors.toList());

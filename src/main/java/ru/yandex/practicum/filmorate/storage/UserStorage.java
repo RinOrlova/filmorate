@@ -16,7 +16,7 @@ public interface UserStorage {
 
     Optional<User> getUserById(Integer id);
 
-    default User getUserFromStorage(Integer id){
+    default User getUserFromStorage(Integer id) {
         return getUserById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 }

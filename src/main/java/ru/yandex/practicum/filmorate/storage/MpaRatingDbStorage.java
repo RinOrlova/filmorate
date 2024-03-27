@@ -22,7 +22,7 @@ public class MpaRatingDbStorage {
     public Collection<Rating> getListOfRatings() {
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet("select * from mpa_rating");
         Collection<Rating> ratings = new HashSet<>();
-        while(rowSet.next()) {
+        while (rowSet.next()) {
             Rating rating = new Rating(
                     rowSet.getInt(ID_COLUMN),
                     MpaRating.valueOf(rowSet.getString(NAME_COLUMN))

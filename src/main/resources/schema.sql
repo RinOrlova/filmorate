@@ -1,57 +1,100 @@
-CREATE TABLE IF NOT EXISTS "film"
+CREATE TABLE IF NOT EXISTS "FILM"
 (
-    "id"          int auto_increment PRIMARY KEY ,
-    "name"        varchar,
-    "description" varchar,
-    "duration"    int,
-    "releaseDate" date,
-    "rating_id"   int
+    "ID"
+    INT
+    AUTO_INCREMENT
+    PRIMARY
+    KEY,
+    "NAME"
+    VARCHAR,
+    "DESCRIPTION"
+    VARCHAR,
+    "DURATION"
+    INT,
+    "RELEASEDATE"
+    DATE,
+    "RATING_ID"
+    INT
 );
-CREATE TABLE IF NOT EXISTS "genre"
+CREATE TABLE IF NOT EXISTS "GENRE"
 (
-    "id"   int auto_increment PRIMARY KEY,
-    "name" varchar
+    "ID"
+    INT
+    AUTO_INCREMENT
+    PRIMARY
+    KEY,
+    "NAME"
+    VARCHAR
 );
-CREATE TABLE IF NOT EXISTS "film_x_genre"
+CREATE TABLE IF NOT EXISTS "FILM_X_GENRE"
 (
-    "film_id"  int,
-    "genre_id" int
+    "FILM_ID"
+    INT,
+    "GENRE_ID"
+    INT
 );
-CREATE TABLE IF NOT EXISTS "mpa_rating"
+CREATE TABLE IF NOT EXISTS "MPA_RATING"
 (
-    "id"   int auto_increment PRIMARY KEY,
-    "name" varchar
+    "ID"
+    INT
+    AUTO_INCREMENT
+    PRIMARY
+    KEY,
+    "NAME"
+    VARCHAR
 );
-CREATE TABLE IF NOT EXISTS "app_user"
+CREATE TABLE IF NOT EXISTS "APP_USER"
 (
-    "id"       int auto_increment PRIMARY KEY,
-    "name"     varchar,
-    "login"    varchar,
-    "email"    varchar,
-    "birthday" date
+    "ID"
+    INT
+    AUTO_INCREMENT
+    PRIMARY
+    KEY,
+    "NAME"
+    VARCHAR,
+    "LOGIN"
+    VARCHAR,
+    "EMAIL"
+    VARCHAR,
+    "BIRTHDAY"
+    DATE
 );
-CREATE TABLE IF NOT EXISTS "film_x_user"
+CREATE TABLE IF NOT EXISTS "FILM_X_USER"
 (
-    "film_id" int,
-    "user_id" int
+    "FILM_ID"
+    INT,
+    "USER_ID"
+    INT
 );
-CREATE TABLE IF NOT EXISTS "connection"
+CREATE TABLE IF NOT EXISTS "CONNECTION"
 (
-    "user1_id" int,
-    "user2_id" int,
-    "status" BOOLEAN NOT NULL
+    "USER1_ID"
+    INT,
+    "USER2_ID"
+    INT,
+    "STATUS"
+    BOOLEAN
+    NOT
+    NULL
 );
 
-ALTER TABLE "film_x_genre" ADD FOREIGN KEY ("genre_id") REFERENCES "genre" ("id");
+ALTER TABLE "FILM_X_GENRE"
+    ADD FOREIGN KEY ("GENRE_ID") REFERENCES "GENRE" ("ID");
 
-ALTER TABLE "film_x_genre" ADD FOREIGN KEY ("film_id") REFERENCES "film" ("id");
+ALTER TABLE "FILM_X_GENRE"
+    ADD FOREIGN KEY ("FILM_ID") REFERENCES "FILM" ("ID");
 
-ALTER TABLE "film" ADD FOREIGN KEY ("rating_id") REFERENCES "mpa_rating" ("id");
+ALTER TABLE "FILM"
+    ADD FOREIGN KEY ("RATING_ID") REFERENCES "MPA_RATING" ("ID");
 
-ALTER TABLE "film_x_user" ADD FOREIGN KEY ("film_id") REFERENCES "film" ("id");
+ALTER TABLE "FILM_X_USER"
+    ADD FOREIGN KEY ("FILM_ID") REFERENCES "FILM" ("ID");
 
-ALTER TABLE "film_x_user" ADD FOREIGN KEY ("user_id") REFERENCES "app_user" ("id");
+ALTER TABLE "FILM_X_USER"
+    ADD FOREIGN KEY ("USER_ID") REFERENCES "APP_USER" ("ID");
 
-ALTER TABLE "connection" ADD FOREIGN KEY ("user1_id") REFERENCES "app_user" ("id");
+ALTER TABLE "CONNECTION"
+    ADD FOREIGN KEY ("USER1_ID") REFERENCES "APP_USER" ("ID");
 
-ALTER TABLE "connection" ADD FOREIGN KEY ("user2_id") REFERENCES "app_user" ("id");
+ALTER TABLE "CONNECTION"
+    ADD FOREIGN KEY ("USER2_ID") REFERENCES "APP_USER" ("ID");

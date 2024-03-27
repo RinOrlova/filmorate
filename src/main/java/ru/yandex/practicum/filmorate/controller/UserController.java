@@ -9,11 +9,10 @@ import ru.yandex.practicum.filmorate.service.UserService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiPath.USERS_PATH)
+@RequestMapping(ApiPath.USER_PATH)
 @RequiredArgsConstructor
 public class UserController {
 

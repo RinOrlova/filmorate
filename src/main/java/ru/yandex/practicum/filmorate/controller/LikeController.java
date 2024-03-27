@@ -5,13 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.ApiPath;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.service.LikeService;
 
-import javax.validation.Valid;
-
 @RestController
-@RequestMapping(ApiPath.FILMS_PATH)
+@RequestMapping(ApiPath.FILM_PATH)
 @RequiredArgsConstructor
 public class LikeController {
 

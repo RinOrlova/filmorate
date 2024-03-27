@@ -19,12 +19,13 @@ public class MpaRatingController {
     private final MpaRatingService mpaRatingService;
 
     @GetMapping
-    public Collection<Rating> getAllRatings(){
+    public Collection<Rating> getAllRatings() {
         return mpaRatingService.getListOfRatings();
     }
+
     @GetMapping
     @RequestMapping(ApiPath.BY_ID_PATH)
-    public Rating getRatingById(@PathVariable Integer id){
-        return mpaRatingService.getGenreById(id);
+    public Rating getRatingById(@PathVariable(name = "id") Integer id) {
+        return mpaRatingService.getRatingById(id);
     }
 }

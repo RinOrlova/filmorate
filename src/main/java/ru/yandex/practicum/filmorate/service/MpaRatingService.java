@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
-public class MpaRatingService{
+public class MpaRatingService {
     private final MpaRatingDbStorage mpaRatingDbStorage;
 
     public Collection<Rating> getListOfRatings() {

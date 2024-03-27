@@ -34,7 +34,7 @@ public class GenreDbStorage {
 
     public Genre getGenreById(Integer id) {
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet("select * from genre where id = ?", id);
-        if(rowSet.next()){
+        if (rowSet.next()) {
             return new Genre(
                     rowSet.getInt(ID_COLUMN),
                     GenreType.valueOf(rowSet.getString(NAME_COLUMN))
