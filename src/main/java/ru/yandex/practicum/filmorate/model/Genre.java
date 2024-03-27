@@ -7,6 +7,6 @@ import ru.yandex.practicum.filmorate.enums.GenreType;
 public class Genre {
 
     int id;
-    GenreType genreType;
+    GenreType name;
 
 }

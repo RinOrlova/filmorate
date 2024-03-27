@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import lombok.Builder;
 import lombok.Value;
+import lombok.extern.jackson.Jacksonized;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Value
+
 public class User implements Comparable<User> {
 
     @Nullable
@@ -29,6 +31,7 @@ public class User implements Comparable<User> {
     Set<Integer> friendsIds;
 
     @Builder(toBuilder = true)
+    @Jacksonized
     public User(@Nullable Integer id,
                 String email,
                 String login,

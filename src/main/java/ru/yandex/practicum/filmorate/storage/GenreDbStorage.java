@@ -15,8 +15,8 @@ import java.util.HashSet;
 @Repository
 public class GenreDbStorage {
 
-    private static final String ID_COLUMN = "id";
-    private static final String NAME_COLUMN = "name";
+    private static final String ID_COLUMN = "ID";
+    private static final String NAME_COLUMN = "NAME";
     private final JdbcTemplate jdbcTemplate;
 
     public Collection<Genre> getAllGenres() {

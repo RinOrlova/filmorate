@@ -38,7 +38,7 @@ public class FilmController {
     }
 
     @GetMapping(ApiPath.BY_ID_PATH)
-    public ResponseEntity<Film> getFilmById(@PathVariable Integer id) {
+    public ResponseEntity<Film> getFilmById(@PathVariable(name = "id") Integer id) {
         Film result = filmService.getFilmById(id);
         return ResponseEntity.status(200)
                 .body(result);

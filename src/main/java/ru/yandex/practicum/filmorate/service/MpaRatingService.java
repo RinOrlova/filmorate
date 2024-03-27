@@ -16,7 +16,7 @@ public class MpaRatingService {
         return mpaRatingDbStorage.getListOfRatings();
     }
 
-    public Rating getGenreById(Integer id) {
+    public Rating getRatingById(Integer id) {
         return mpaRatingDbStorage.getRatingById(id);
     }
 }

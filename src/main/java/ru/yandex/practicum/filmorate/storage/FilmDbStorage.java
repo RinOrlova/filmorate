@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.practicum.filmorate.converter.FilmConverter;
 import ru.yandex.practicum.filmorate.model.Film;
 
@@ -19,6 +20,7 @@ public class FilmDbStorage implements FilmStorage {
     private final FilmConverter filmConverter;
 
     @Override
+    @Transactional
     public Film addFilm(Film film) {
         jdbcTemplate.update("insert into film(name, description, releaseDate, duration) VALUES(?,?,?,?)",
                 film.getName(),
@@ -30,6 +32,7 @@ public class FilmDbStorage implements FilmStorage {
     }
 
     @Override
+    @Transactional
     public Film updateFilm(Film film) {
         jdbcTemplate.update("update film set name = ?, description = ?, releaseDate = ?, duration = ? where id = ?",
                 film.getName(),

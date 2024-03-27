@@ -8,10 +8,10 @@ import ru.yandex.practicum.filmorate.model.User;
 public class UserConverter {
 
 
-    private static final String ID_COLUMN = "id";
-    private static final String EMAIL_COLUMN = "email";
-    private static final String LOGIN_COLUMN = "login";
-    private static final String BIRTHDAY_COLUMN = "birthday";
+    private static final String ID_COLUMN = "ID";
+    private static final String EMAIL_COLUMN = "EMAIL";
+    private static final String LOGIN_COLUMN = "LOGIN";
+    private static final String BIRTHDAY_COLUMN = "BIRTHDAY";
 
     public User convert(SqlRowSet rowSet) {
         return User.builder()

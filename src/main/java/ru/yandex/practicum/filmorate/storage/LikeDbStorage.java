@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
+import java.util.Collection;
+
 @RequiredArgsConstructor
 @Repository
 public class LikeDbStorage {

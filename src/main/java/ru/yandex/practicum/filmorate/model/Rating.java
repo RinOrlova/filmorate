@@ -7,6 +7,6 @@ import ru.yandex.practicum.filmorate.enums.MpaRating;
 public class Rating {
 
     int id;
-    MpaRating mpaRating;
+    MpaRating name;
 
 }

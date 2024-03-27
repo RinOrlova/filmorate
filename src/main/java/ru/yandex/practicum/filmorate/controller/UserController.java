@@ -41,29 +41,4 @@ public class UserController {
         return ResponseEntity.status(200).body(result);
     }
 
-    @PutMapping(ApiPath.FRIENDS_BY_FRIEND_ID_PATH)
-    public ResponseEntity<User> addFriend(@PathVariable Integer id, @PathVariable Integer friendId) {
-        User result = userService.addFriend(id, friendId);
-        return ResponseEntity.status(200).body(result);
-    }
-
-    @DeleteMapping(ApiPath.FRIENDS_BY_FRIEND_ID_PATH)
-    public ResponseEntity<User> deleteFriend(@PathVariable Integer id, @PathVariable Integer friendId) {
-        User result = userService.removeFriend(id, friendId);
-        return ResponseEntity.status(200).body(result);
-    }
-
-    @GetMapping(ApiPath.FRIENDS_PATH)
-    public ResponseEntity<Collection<User>> getFriends(@PathVariable Integer id) {
-        Collection<User> friends = userService.getFriendsCollection(id);
-        return ResponseEntity.status(200).body(friends);
-    }
-
-    @GetMapping(ApiPath.COMMON_FRIENDS_PATH)
-    public ResponseEntity<Collection<User>> getCommonFriends(@PathVariable Integer id, @PathVariable Integer otherId) {
-        Collection<User> commonFriends = userService.getCommonFriends(id, otherId);
-        return ResponseEntity.status(200).body(commonFriends);
-
-    }
-
 }

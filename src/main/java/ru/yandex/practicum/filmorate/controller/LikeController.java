@@ -15,16 +15,16 @@ public class LikeController {
     private final LikeService likeService;
 
     @PutMapping(ApiPath.FILM_LIKES_PATH)
-    public ResponseEntity<Film> addLike(@PathVariable Integer id,
-                                        @PathVariable Integer userId) {
+    public ResponseEntity<Film> addLike(@PathVariable(name = "id") Integer id,
+                                        @PathVariable(name = "userId") Integer userId) {
         Film result = likeService.addLike(id, userId);
         return ResponseEntity.status(200)
                 .body(result);
     }
 
     @DeleteMapping(ApiPath.FILM_LIKES_PATH)
-    public ResponseEntity<Film> deleteLike(@PathVariable Integer id,
-                                           @PathVariable Integer userId) {
+    public ResponseEntity<Film> deleteLike(@PathVariable(name = "id") Integer id,
+                                           @PathVariable(name = "userId") Integer userId) {
         Film result = likeService.removeLike(id, userId);
         return ResponseEntity.status(200)
                 .body(result);
